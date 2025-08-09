@@ -18,6 +18,12 @@ function startLevel() {
         if (oldImage) {
             oldImage.remove();
         }
+        
+        // Entferne den alten Neustart-Knopf, falls vorhanden
+        const oldRestartButton = document.getElementById("restart-button");
+        if (oldRestartButton) {
+            oldRestartButton.remove();
+        }
 
         levelTitle.textContent = "You Win!";
         itemHealthDisplay.textContent = "All devices destroyed!";
@@ -27,8 +33,25 @@ function startLevel() {
         winImage.src = "win.png";
         winImage.classList.add("win-image");
         gameContainer.insertBefore(winImage, destroyButton);
+        
+        // HIER FÜGEN WIR DEN NEUSTART-KNOPF HINZU
+        const restartButton = document.createElement("button");
+        restartButton.textContent = "Neustart";
+        restartButton.id = "restart-button";
+        gameContainer.appendChild(restartButton);
+
+        restartButton.addEventListener("click", () => {
+            currentLevelIndex = 0; // Setzt den Level-Zähler zurück
+            startLevel(); // Startet das Spiel neu
+        });
 
         return;
+    }
+
+    // Entferne den Neustart-Knopf, falls vorhanden
+    const oldRestartButton = document.getElementById("restart-button");
+    if (oldRestartButton) {
+        oldRestartButton.remove();
     }
     
     const currentLevel = levels[currentLevelIndex];

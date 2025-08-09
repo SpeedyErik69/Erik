@@ -13,13 +13,19 @@ const destroyButton = document.getElementById("destroy-button");
 const gameContainer = document.getElementById("game-container");
 
 function startLevel() {
+    // === NEUER CODE HIER: ENTFERNT DEN WIN-BILDSCHIRM ===
+    const winImage = document.querySelector(".win-image");
+    if (winImage) {
+        winImage.remove();
+    }
+    // ====================================================
+
     if (currentLevelIndex >= levels.length) {
         const oldImage = document.getElementById("item-image");
         if (oldImage) {
             oldImage.remove();
         }
         
-        // Entferne den alten Neustart-Knopf, falls vorhanden
         const oldRestartButton = document.getElementById("restart-button");
         if (oldRestartButton) {
             oldRestartButton.remove();
@@ -29,26 +35,24 @@ function startLevel() {
         itemHealthDisplay.textContent = "All devices destroyed!";
         destroyButton.style.display = "none";
 
-        const winImage = document.createElement("img");
-        winImage.src = "win.png";
-        winImage.classList.add("win-image");
-        gameContainer.insertBefore(winImage, destroyButton);
+        const newWinImage = document.createElement("img");
+        newWinImage.src = "win.png";
+        newWinImage.classList.add("win-image");
+        gameContainer.insertBefore(newWinImage, destroyButton);
         
-        // HIER FÜGEN WIR DEN NEUSTART-KNOPF HINZU
         const restartButton = document.createElement("button");
         restartButton.textContent = "Restart";
         restartButton.id = "restart-button";
         gameContainer.appendChild(restartButton);
 
         restartButton.addEventListener("click", () => {
-            currentLevelIndex = 0; // Setzt den Level-Zähler zurück
-            startLevel(); // Startet das Spiel neu
+            currentLevelIndex = 0;
+            startLevel();
         });
 
         return;
     }
-
-    // Entferne den Neustart-Knopf, falls vorhanden
+    
     const oldRestartButton = document.getElementById("restart-button");
     if (oldRestartButton) {
         oldRestartButton.remove();
@@ -74,7 +78,7 @@ function startLevel() {
     
     imageElement.addEventListener("click", onDestroyClick);
     
-    destroyButton.style.display = "none";
+    destroyButton.style.display = "block"; // Knopf wieder anzeigen
 }
 
 function onDestroyClick() {

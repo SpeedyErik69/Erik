@@ -36,7 +36,7 @@ function startLevel() {
         
         // HIER FÜGEN WIR DEN NEUSTART-KNOPF HINZU
         const restartButton = document.createElement("button");
-        restartButton.textContent = "Neustart";
+        restartButton.textContent = "Restart";
         restartButton.id = "restart-button";
         gameContainer.appendChild(restartButton);
 
